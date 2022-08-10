@@ -108,3 +108,35 @@ INSERt INTO client VALUES(403, 'John Daily Law', 3);
 INSERt INTO client VALUES(404, 'Scranton White Pages', 2);
 INSERt INTO client VALUES(405, 'Times Newspaper', 3);
 INSERt INTO client VALUES(406, 'FedEx', 2);
+
+INSERT INTO works_with VALUES(105, 400, 55000);
+INSERT INTO works_with VALUES(102, 401, 260000);
+INSERT INTO works_with VALUES(108, 402, 22500);
+INSERT INTO works_with VALUES(107, 403, 26700);
+INSERT INTO works_with VALUES(108, 403, 12000);
+INSERT INTO works_with VALUES(105, 404, 12050);
+INSERT INTO works_with VALUES(107, 405, 325000);
+INSERT INTO works_with VALUES(102, 406, 13000);
+INSERT INTO works_with VALUES(105, 406, 120000);
+
+
+
+
+-- More Basic Queries
+
+-- Get All Employees
+SELECT * FROM employee;
+
+-- Find all employees ordered by salary
+SELECT * FROM employee
+ORDER BY salary; -- You can also add DESC in last for descending order 
+
+-- Find all employees ordered by sex and name
+
+SELECT * FROM employee
+ORDER BY sex, first_name;
+
+-- First 5 employee in the table
+
+SELECT * FROM employee
+LIMIT 5;

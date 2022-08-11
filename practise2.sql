@@ -57,7 +57,7 @@ CREATE TABLE branch_supplier(
 
 DROP TABLE client;
 
-SELECT * FROM employee;
+SELECT * FROM client;
 
 -- Insert values inside the table
 INSERT INTO employee VALUES(100, 'Robin', 'Dsuza', '1995-02-15', "M", 250000, NULL, NULL);
@@ -140,3 +140,68 @@ ORDER BY sex, first_name;
 
 SELECT * FROM employee
 LIMIT 5;
+
+-- Find only first and last name of all employees
+SELECT first_name, last_name
+FROM employee;
+
+-- Find the forename and surname of all employees using AS
+SELECT first_name AS forename, last_name AS surname
+FROM employee;
+
+-- Find all the different genders used
+SELECT DISTINCT sex
+FROM employee;
+ 
+--Count Number of employees there in the table
+
+SELECT COUNT(emp_id)
+FROM employee;
+
+-- Find the number of employees born after 1970
+SELECT COUNT(emp_id)
+FROM employee
+WHERE sex = 'F' AND birth_day > '1971-01-01';
+
+-- Find an average salary of all the employees
+SELECT AVG(salary)
+FROM employee
+WHERE sex= 'M';
+
+-- Find the sum of all the employee salaries
+SELECT SUM(salary)
+FROM employee;
+
+SELECT SUM(total_sales), emp_id
+FROM works_with
+GROUP BY emp_id ;
+
+-- Aggregration in SQL
+SELECT COUNT(sex), sex
+FROM employee
+GROUP BY sex;
+
+-- WILDCARDS in SQL
+-- % for any character or _ = one character
+SELECT *
+FROM client
+WHERE client_name LIKE '%School';
+
+-- Find any branch supplier which are in label business
+SELECT *
+FROM branch_supplier
+WHERE supplier_name LIKE '%Label%';
+
+
+-- Find any employee born in October
+SELECT *
+FROM employee
+WHERE birth_day LIKE '____-02%';
+
+-- Find a list of employee and branch names together
+
+SELECT first_name
+FROM employee
+UNION
+SELECT branch_name
+FROM branch

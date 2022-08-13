@@ -198,10 +198,20 @@ SELECT *
 FROM employee
 WHERE birth_day LIKE '____-02%';
 
+----
+SELECT *
+FROM branch;
+
 -- Find a list of employee and branch names together
 
 SELECT first_name
 FROM employee
 UNION
 SELECT branch_name
-FROM branch
+FROM branch;
+
+-- Find all branches and names of the manager
+SELECT first_name, branch_name, emp_id
+FROM employee
+JOIN branch
+ON emp_id = mgr_id;

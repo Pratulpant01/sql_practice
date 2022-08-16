@@ -55,9 +55,9 @@ CREATE TABLE branch_supplier(
 );
 
 
-DROP TABLE client;
+DROP TABLE branch_supplier;
 
-SELECT * FROM client;
+SELECT * FROM branch_supplier;
 
 -- Insert values inside the table
 INSERT INTO employee VALUES(100, 'Robin', 'Dsuza', '1995-02-15', "M", 250000, NULL, NULL);
@@ -215,3 +215,74 @@ SELECT first_name, branch_name, emp_id
 FROM employee
 JOIN branch
 ON emp_id = mgr_id;
+
+
+SELECT *
+FROM branch;
+
+ 
+
+-- Find all clients who are handled by the branch
+
+SELECT client_name
+FROM client
+WHERE branch_id = (
+    SELECT branch_id
+    FROM branch
+    WHERE branch.mgr_id = 102
+);
+
+-- To delete from tables
+
+DELETE FROM employee
+WHERE emp_id = 102;
+
+DELETE FROM branch
+WHERE branch_id = 2;
+
+CREATE TABLE trigger_test(
+    message VARCHAR(100)
+);
+ -- Triggers
+
+DELIMITER $$
+CREATE
+    TRIGGER my_trigger BEFORE INSERT
+    ON employee
+    FOR EACH ROW BEGIN
+        INSERT INTO trigger_test VALUES('Added new employee');
+    END$$
+DELIMITER ;
+
+INSERT INTO employee VALUES(110, 'Oscar', 'Robert', '1965-02-12', 'M', 65430, 106, 3);
+
+DELIMITER $$
+CREATE
+    TRIGGER my_trigger01 BEFORE INSERT
+    ON employee
+    FOR EACH ROW BEGIN
+        INSERT INTO trigger_test VALUES(NEW.first_name);
+    END$$
+DELIMITER;
+
+DELETE FROM employee
+WHERE emp_id = 110;
+
+-- Using trigger with if else statement
+
+DELIMITER $$
+CREATE
+    TRIGGER my_trigger02 BEFORE INSERT
+    ON employee
+    FOR EACH ROW BEGIN
+        IF NEW.sex = 'M' THEN
+                INSERT INTO trigger_test VALUES('Male Employee Added');
+        ELSEIF NEW.sex='F' THEN
+                INSERT INTO trigger_test VALUES('Female Employee Added');
+        ELSE
+                INSERT INTO trigger_test VALUES('Added other employee');
+        END IF;
+    END$$
+DELIMITER ;        
+
+SELECT * FROM trigger_test;
